@@ -16,7 +16,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> categories = _UnitOfWork.category.GetAll().ToList();
+            List<Category> categories = _UnitOfWork.Category.GetAll().ToList();
             return View(categories);
         }
         public IActionResult Create()
@@ -33,7 +33,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _UnitOfWork.category.Add(category);
+                _UnitOfWork.Category.Add(category);
                 _UnitOfWork.Save();
                 TempData["success"] = category.Name + " Category created successfully.";
                 return RedirectToAction("Index");
@@ -47,7 +47,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category category = _UnitOfWork.category.Get(cat => cat.Id == id);
+            Category category = _UnitOfWork.Category.Get(cat => cat.Id == id);
 
             if (category == null)
             {
@@ -61,7 +61,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _UnitOfWork.category.Update(category);
+                _UnitOfWork.Category.Update(category);
                 _UnitOfWork.Save();
                 TempData["success"] = category.Name + " Category updated successfully.";
                 return RedirectToAction("Index");
@@ -74,7 +74,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? category = _UnitOfWork.category.Get(cat => cat.Id == id);
+            Category? category = _UnitOfWork.Category.Get(cat => cat.Id == id);
 
             if (category == null)
             {
@@ -85,13 +85,13 @@ namespace BulkyWeb.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? category = _UnitOfWork.category.Get(cat => cat.Id == id);
+            Category? category = _UnitOfWork.Category.Get(cat => cat.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
             string CategoryName = category.Name;
-            _UnitOfWork.category.Remove(category);
+            _UnitOfWork.Category.Remove(category);
             _UnitOfWork.Save();
             TempData["success"] = CategoryName + " Category deleted successfully.";
             return RedirectToAction("Index");
