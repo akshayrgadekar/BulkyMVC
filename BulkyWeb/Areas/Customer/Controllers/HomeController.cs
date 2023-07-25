@@ -18,12 +18,12 @@ namespace BulkyWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _unitOfWork.Product.GetAll(includeProperties: nameof(Category));
+            IEnumerable<Product> products = _unitOfWork.product.GetAll(includeProperties: nameof(Category));
             return View(products);
         }
         public IActionResult Details(int productId)
         {
-            Product product = _unitOfWork.Product.Get(p => p.Id == productId, includeProperties: nameof(Category));
+            Product product = _unitOfWork.product.Get(p => p.Id == productId, includeProperties: nameof(Category));
             return View(product);
         }
 

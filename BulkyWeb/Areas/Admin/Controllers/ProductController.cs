@@ -23,7 +23,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> products = _UnitOfWork.Product.GetAll(includeProperties: nameof(Category)).ToList();
+            List<Product> products = _UnitOfWork.product.GetAll(includeProperties: nameof(Category)).ToList();
             
             return View(products);
         }
@@ -31,7 +31,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         {
             ProductVM productVM = new ProductVM()
             {
-                CategoryList = _UnitOfWork.Category.GetAll().
+                CategoryList = _UnitOfWork.category.GetAll().
                 Select(u =>
                 new SelectListItem
                 {
@@ -48,7 +48,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             }
             else
             {
-                productVM.Product = _UnitOfWork.Product.Get(p => p.Id == id);
+                productVM.Product = _UnitOfWork.product.Get(p => p.Id == id);
                 return View(productVM);
             }
         }
@@ -81,11 +81,11 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
                 if (productVM.Product.Id == 0)
                 {
-                    _UnitOfWork.Product.Add(productVM.Product);
+                    _UnitOfWork.product.Add(productVM.Product);
                 }
                 else
                 {
-                    _UnitOfWork.Product.Update(productVM.Product);
+                    _UnitOfWork.product.Update(productVM.Product);
                 }
 
                 _UnitOfWork.Save();
@@ -94,7 +94,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
             }
             else
             {
-                productVM.CategoryList = _UnitOfWork.Category.GetAll().
+                productVM.CategoryList = _UnitOfWork.category.GetAll().
                 Select(u =>
                 new SelectListItem
                 {
@@ -110,7 +110,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Product> products = _UnitOfWork.Product.GetAll(includeProperties: nameof(Category)).ToList();
+            List<Product> products = _UnitOfWork.product.GetAll(includeProperties: nameof(Category)).ToList();
 
             return Json(new { data = products });
         }
@@ -118,7 +118,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var productToBeDeleted = _UnitOfWork.Product.Get(u => u.Id == id);
+            var productToBeDeleted = _UnitOfWork.product.Get(u => u.Id == id);
             if (productToBeDeleted == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
@@ -132,7 +132,7 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 System.IO.File.Delete(oldImagePath);
             }
             
-            _UnitOfWork.Product.Remove(productToBeDeleted);
+            _UnitOfWork.product.Remove(productToBeDeleted);
             _UnitOfWork.Save();
 
             return Json(new { success = true, message = "Delete Successful" });
