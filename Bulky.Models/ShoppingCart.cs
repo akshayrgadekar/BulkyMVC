@@ -16,7 +16,7 @@ namespace Bulky.Models
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         [ValidateNever]
-        public Product Product { get; set; }
+        public Product product { get; set; }
 
         [Range(1,100,ErrorMessage ="Please enter value between 1 to 100.")]
         public int Count { get; set; }
