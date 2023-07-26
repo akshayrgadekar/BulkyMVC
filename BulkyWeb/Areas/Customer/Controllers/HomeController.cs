@@ -37,10 +37,10 @@ namespace BulkyWeb.Areas.Customer.Controllers
         [Authorize]
         public IActionResult Details(ShoppingCart shoppingCart)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = userId;
-
+          
             ShoppingCart shoppingCartFromDb = _unitOfWork.shoppingCart.Get(s => s.ApplicationUserId == userId &&
                                                                                 s.ProductId == shoppingCart.ProductId);
             if (shoppingCartFromDb != null)
