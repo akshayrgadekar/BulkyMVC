@@ -54,7 +54,7 @@ namespace Bulky.DataAccess.Repository
             IQueryable<T> query = dbSet;
             if (filter != null)
             {
-                dbSet.Where(filter);
+                query = dbSet.Where(filter);
             }
             if (!string.IsNullOrEmpty(includeProperties))
             {
