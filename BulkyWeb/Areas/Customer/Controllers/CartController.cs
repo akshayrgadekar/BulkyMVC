@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using Stripe;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BulkyWeb.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class CartController : Controller
     {
         private IUnitOfWork _unitOfWork;
