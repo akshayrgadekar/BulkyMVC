@@ -106,6 +106,7 @@ namespace BulkyWeb.Areas.Customer.Controllers
                     count = cart.Count
                 };
                 _unitOfWork.orderDeatils.Add(orderDetail);
+                _unitOfWork.Save();
             }
 
             if (applicationUser.CompanyId.GetValueOrDefault() == 0)
